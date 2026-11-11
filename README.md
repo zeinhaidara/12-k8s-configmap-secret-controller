@@ -1,4 +1,4 @@
-# ConfigMap to Secret sync controller
+# ConfigMap-to-Secret sync controller
 
 Apps often need secrets from a cloud secret store. Copying those values into Kubernetes by
 hand means they end up pasted into terminals and chat logs, which leaks them. And once
@@ -39,7 +39,7 @@ rules:
 
 Tested with unittest and fakes only. Not run against a cluster or AWS.
 
-## Limits
+## Known limitations
 
 - Not run against a real cluster or AWS.
 - Secret values are never logged.

@@ -4,3 +4,5 @@ __pycache__/
 .venv/
 venv/
 .ruff_cache/
+*.tfplan
+memory/
