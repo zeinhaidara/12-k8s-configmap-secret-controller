@@ -17,6 +17,33 @@ flowchart LR
     B --> D[Kubernetes Secret]
 ```
 
+## Usage
+
+Annotate a ConfigMap with the name of a secret in AWS Secrets Manager. The controller creates or
+updates a Secret named `<configmap>-synced` in the same namespace, owned by the ConfigMap, with the
+secret value under a key of that same name. It never overwrites a Secret it did not create.
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: payments
+  annotations:
+    secret-sync.example.com/source: prod/payments/db-password
+```
+
+The controller only runs inside a cluster (`load_incluster_config`), with `NAMESPACE` set and AWS
+credentials from its service account. This repo has no deployment manifest for it.
+
+Run the same checks as CI (no cluster or AWS needed; the tests use a fake store and a fake API):
+
+```sh
+pip install -r requirements-test.txt
+ruff check .
+ruff format --check .
+python -m unittest discover -s tests
+```
+
 ## RBAC
 
 Minimum permissions the controller needs in its namespace:
